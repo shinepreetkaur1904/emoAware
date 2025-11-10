@@ -1,0 +1,7 @@
+| Step | File(s)                         | Description                                                          |
+| ---- | ------------------------------- | -------------------------------------------------------------------- |
+| 1️⃣  | **ads.html / ads.css / ads.js** | Add the “🎮 Let’s Play Game” arrow button on the ad page.            |
+| 2️⃣  | **games.html**                  | Create the central game selection hub page.                          |
+| 3️⃣  | **game.css**                    | Global style for all mini-games (same design system).                |
+| 4️⃣  | **game1.html → game5.html**     | Each file contains one specific game.                                |
+| 5️⃣  | **game1.js → game5.js**         | Each file holds its game logic (bubble pop, breathing circle, etc.). |

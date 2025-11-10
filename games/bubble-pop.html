@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bubble Pop | EmoAware</title>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap');
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #fff0f3, #ffe4e8);
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* TITLE */
+  .bubble-title {
+    text-align: center;
+    margin-top: 8px;
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: #e60023;
+    z-index: 10;
+    position: relative;
+  }
+
+  .subline {
+    text-align: center;
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 8px;
+    z-index: 10;
+    position: relative;
+  }
+
+  /* GAME AREA */
+  .game-area {
+    position: fixed;
+    top: 120px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 160px);
+    overflow: hidden;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* BUBBLE */
+  .bubble {
+    position: absolute;
+    width: 65px;
+    height: 65px;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(255,182,193,0.3));
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(3px);
+    box-shadow: 0 4px 12px rgba(230,0,35,0.15);
+    animation: floatUp 25s linear forwards; /* little faster */
+    cursor: pointer;
+    opacity: 0.8;
+    pointer-events: auto;
+    z-index: 999;
+  }
+
+  /* FLOAT ANIMATION */
+  @keyframes floatUp {
+    from { transform: translateY(100vh); opacity: 1; }
+    to   { transform: translateY(-150vh); opacity: 0.4; }
+  }
+
+  /* SCORE */
+  .score-box {
+    position: fixed;
+    top: 10px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 10px 16px;
+    border-radius: 14px;
+    font-weight: 600;
+    color: #e60023;
+    font-size: 15px;
+    box-shadow: 0 4px 12px rgba(230,0,35,0.15);
+    backdrop-filter: blur(12px);
+    z-index: 10;
+  }
+
+  /* BACK BUTTON */
+  .back-btn {
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #e60023, #ff6b81);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0 6px 18px rgba(230,0,35,0.2);
+    z-index: 10;
+  }
+  .back-btn:hover {
+    background: #b0001b;
+    transform: translateX(-50%) translateY(-3px);
+  }
+</style>
+</head>
+
+<body>
+
+<h1 class="bubble-title">Bubble Pop 🌼</h1>
+<p class="subline">Tap gently & watch your stress float away</p>
+
+<div class="score-box">Score: <span id="score">0</span></div>
+
+<div class="game-area" id="gameArea"></div>
+
+<button class="back-btn" onclick="window.location.href='../games.html'">⬅ Back to Games</button>
+
+<script>
+  const gameArea = document.getElementById("gameArea");
+  const scoreDisplay = document.getElementById("score");
+  let score = 0;
+
+  function createBubble() {
+    const bubble = document.createElement("div");
+    bubble.classList.add("bubble");
+
+    // random X position
+    bubble.style.left = Math.random() * (window.innerWidth - 80) + "px";
+
+    // CLICK → JUST REMOVE
+    bubble.addEventListener("click", () => {
+      bubble.remove(); // ✅ simple vanish
+      score++;
+      scoreDisplay.textContent = score;
+    });
+
+    gameArea.appendChild(bubble);
+
+    // auto remove after float
+    setTimeout(() => bubble.remove(), 25000);
+  }
+
+  // slightly faster spawn
+  createBubble();
+  setInterval(createBubble, 1700);
+</script>
+
+</body>
+</html>

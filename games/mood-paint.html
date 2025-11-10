@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mood Paint | EmoAware</title>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap');
+
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #fff0f3, #ffe4e8);
+    height: 100vh;
+    overflow: hidden;
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    color: #e60023;
+    font-size: 30px;
+    margin-bottom: 6px;
+  }
+
+  .subline {
+    color: #555;
+    opacity: 0.9;
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+
+  /* Canvas container */
+  .canvas-wrap {
+    position: relative;
+    width: 60%;
+    height: 60vh;
+    min-width: 350px;
+    background: rgba(255,255,255,0.78);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: 0 8px 25px rgba(230,0,35,0.12);
+    backdrop-filter: blur(12px);
+    z-index: 1;
+  }
+
+  canvas {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    cursor: crosshair;
+  }
+
+  /* LEFT TOOLBOX */
+  .toolbox-left {
+    position: absolute;
+    top: 50%;
+    left: 2%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    z-index: 200;
+  }
+
+  /* Colors */
+  .colors {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .color {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.85);
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  /* Horizontal slider */
+  .slider-wrapper-horizontal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 120px;
+  }
+
+  .slider-label {
+    font-size: 14px;
+    color: #666;
+  }
+
+  .size-slider-horizontal {
+    width: 120px;
+    height: 6px;
+    -webkit-appearance: none;
+    background: rgba(255,255,255,0.8);
+    border-radius: 10px;
+    outline: none;
+    box-shadow: 0 3px 8px rgba(230,0,35,0.15);
+  }
+
+  .size-slider-horizontal::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #e60023;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(230,0,35,0.25);
+  }
+
+  /* Small Buttons */
+  .btn.small {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #e60023, #ff6b81);
+    border: none;
+    color: #fff;
+    border-radius: 14px;
+    cursor: pointer;
+    font-weight: 600;
+    width: 90px;
+    text-align: center;
+    box-shadow: 0 6px 16px rgba(230,0,35,0.18);
+    font-size: 14px;
+  }
+
+  .btn.small:hover {
+    filter: brightness(0.92);
+    transform: translateY(-2px);
+  }
+
+  /* Bottom Button Row */
+  .btn-row-bottom {
+    margin-top: 22px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .btn {
+    padding: 10px 22px;
+    background: linear-gradient(135deg, #e60023, #ff6b81);
+    border: none;
+    color: #fff;
+    border-radius: 14px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 6px 20px rgba(230,0,35,0.18);
+  }
+
+  .btn:hover {
+    filter: brightness(0.92);
+    transform: translateY(-2px);
+  }
+
+  /* Encouragement message */
+  .message {
+    margin-top: 20px;
+    opacity: 0;
+    color: #e60023;
+    font-size: 18px;
+    font-weight: 600;
+    transition: opacity .4s ease;
+  }
+</style>
+</head>
+
+<body>
+
+<h1>Mood Paint 🎨</h1>
+<p class="subline">Express your feelings softly through colors</p>
+
+<!-- LEFT TOOLBOX -->
+<div class="toolbox-left">
+
+  <div class="colors" id="colorPalette">
+    <div class="color" style="background:#e60023"></div>
+    <div class="color" style="background:#ff6b81"></div>
+    <div class="color" style="background:#ffadc2"></div>
+    <div class="color" style="background:#ffdce6"></div>
+    <div class="color" style="background:#ffeef4"></div>
+  </div>
+
+  <!-- ✅ NEW HORIZONTAL SLIDER -->
+  <div class="slider-wrapper-horizontal">
+    <label class="slider-label">Brush Size</label>
+    <input type="range" min="2" max="20" value="8" class="size-slider-horizontal" id="brushSize">
+  </div>
+
+  <button class="btn small" id="eraser">Eraser</button>
+  <button class="btn small" id="clearCanvas">Clear</button>
+
+</div>
+
+<!-- CANVAS AREA -->
+<div class="canvas-wrap">
+  <canvas id="paintCanvas"></canvas>
+</div>
+
+<!-- BOTTOM BUTTONS -->
+<div class="btn-row-bottom">
+  <button class="btn" id="restartPaint">Restart</button>
+  <button class="btn" id="saveBtn">Save</button>
+  <button class="btn" onclick="window.location.href='../games.html'">⬅ Back</button>
+</div>
+
+<div class="message" id="endMsg"></div>
+
+<script>
+
+  const canvas = document.getElementById("paintCanvas");
+  const ctx = canvas.getContext("2d");
+
+  function resizeCanvas() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+  resizeCanvas();
+  window.addEventListener("resize", resizeCanvas);
+
+  let painting = false;
+  let brushColor = "#e60023";
+  let size = 8;
+
+  const messages = [
+    "Your art feels peaceful 🤍",
+    "Soft strokes, soft heart 🌸",
+    "Beautiful flow ✨",
+    "You’re expressing yourself gently 💗",
+    "Calm creativity 🕊️"
+  ];
+
+  function startDrawing(e) {
+    painting = true;
+    draw(e);
+  }
+
+  function stopDrawing() {
+    painting = false;
+    ctx.beginPath();
+  }
+
+  function draw(e) {
+    if (!painting) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+
+    ctx.lineCap = "round";
+    ctx.lineWidth = size;
+    ctx.strokeStyle = brushColor;
+
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+  }
+
+  // Color selection
+  document.querySelectorAll(".color").forEach(col => {
+    col.addEventListener("click", () => {
+      brushColor = col.style.background;
+    });
+  });
+
+  // Brush size
+  document.getElementById("brushSize").addEventListener("input", e => {
+    size = e.target.value;
+  });
+
+  // Eraser
+  document.getElementById("eraser").addEventListener("click", () => {
+    brushColor = "#ffffff";
+  });
+
+  // Clear
+  document.getElementById("clearCanvas").addEventListener("click", () => {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    showMsg();
+  });
+
+  // Restart (same as clear)
+  document.getElementById("restartPaint").addEventListener("click", () => {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    showMsg();
+  });
+
+  // Save
+  document.getElementById("saveBtn").addEventListener("click", () => {
+    const link = document.createElement("a");
+    link.download = "mood-paint.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+
+  function showMsg() {
+    const msg = document.getElementById("endMsg");
+    msg.textContent = messages[Math.floor(Math.random() * messages.length)];
+    msg.style.opacity = 1;
+    setTimeout(() => msg.style.opacity = 0, 3000);
+  }
+
+  // Event listeners
+  canvas.addEventListener("mousedown", startDrawing);
+  canvas.addEventListener("mouseup", stopDrawing);
+  canvas.addEventListener("mousemove", draw);
+
+  canvas.addEventListener("touchstart", startDrawing);
+  canvas.addEventListener("touchend", stopDrawing);
+  canvas.addEventListener("touchmove", draw);
+
+</script>
+
+</body>
+</html>

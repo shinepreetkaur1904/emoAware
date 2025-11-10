@@ -1,0 +1,235 @@
+; Perfect Shine 🌸 this is *exactly* how a smart dev + marketer should begin — planning the structure before touching the code.
+; We’ll lay down a **full development roadmap for EmoAware**, in clean order, with filenames, folder layout, and what goes in each file.
+
+; ---
+
+; # 🧭 EMOAWARE – Full Project Plan (MKT311 Ready)
+
+; **Goal:** Build a *front-end-only emotional AI web app* that provides empathetic chatbot support, hobby suggestions, motivational quotes, and mini-games — inspired by **Pinterest’s design**.
+
+; ---
+
+; ## 🗂️ Folder Structure (Final Layout)
+
+; ```
+; emoaware/
+; │
+; ├── index.html          → Homepage + intro + chatbot window
+; ├── about.html          → (optional) for extra content / future expansion
+; ├── game.html           → Mini-game page (unlocked after limit)
+; │
+; ├── /assets
+; │   ├── style.css       → All global styling
+; │   ├── chatbot.css     → Chatbot-specific UI styles
+; │   ├── game.css        → Game visuals (if needed)
+; │   └── logo.svg        → EmoAware logo
+; │
+; ├── /scripts
+; │   ├── main.js         → Controls animations, navbar, and buttons
+; │   ├── chatbot.js      → Chat logic (replies, limits, emotions)
+; │   ├── quotes.js       → Loads and rotates motivational quotes
+; │   ├── game.js         → Mini-game logic (like tic-tac-toe or bubble pop)
+; │
+; ├── /data
+; │   ├── quotes.json     → Motivational quotes list
+; │   ├── places.json     → Static hobbies/activities nearby (mock data)
+; │
+; └── /images
+;     ├── logo.png / logo.svg
+;     ├── banner.jpg
+;     ├── quote1.jpg, quote2.jpg
+;     └── ad1.png, ad2.png
+; ```
+
+; ---
+
+; ## ⚙️ Step-by-Step Build Order (Chronological Plan)
+
+; ### 🧱 **Phase 1 — Setup & Foundation (Day 1–2)**
+
+; **Goal:** Build base website (landing + styling)
+
+; 1. Create the folder `emoaware/`
+; 2. Create these files:
+
+;    * `index.html`
+;    * `/assets/style.css`
+;    * `/assets/logo.svg` (the cute red heart circuit logo you made)
+; 3. Add header, footer, hero section (we already have this code).
+
+;    * Keep everything clean, responsive, Pinterest-like.
+; 4. Add a “Start Chat” button on the homepage → will trigger chatbot later.
+
+; ✅ *Outcome:* Static homepage running in Live Server.
+
+; ---
+
+; ### 🤖 **Phase 2 — Chatbot Interface (Day 3–4)**
+
+; **Goal:** Add the chatbot pop-up window + basic JS replies.
+
+; 1. Create `/assets/chatbot.css`
+; 2. Create `/scripts/chatbot.js`
+; 3. Add a small **chat bubble icon** bottom-right of the page.
+; 4. When clicked → open chat window overlay (div).
+; 5. Inside chat window:
+
+;    * Input box for user message
+;    * Chat messages area
+;    * Close button
+; 6. In `chatbot.js`, detect emotion keywords (sad, anxious, happy, etc.) → reply from predefined templates.
+
+; ✅ *Outcome:* Chatbot opens, replies, and closes — no backend yet.
+
+; ---
+
+; ### 💬 **Phase 3 — Emotion Replies & Limits (Day 5)**
+
+; **Goal:** Make chatbot *feel emotional + limit free sessions.*
+
+; 1. Add logic in `chatbot.js`:
+
+;    * Use `localStorage` to store daily chat count.
+;    * After 2 sessions or 40 min → show lock screen.
+; 2. Create `/data/quotes.json`:
+
+;    ```json
+;    [
+;      { "text": "You are enough, exactly as you are." },
+;      { "text": "Progress, not perfection." }
+;    ]
+;    ```
+; 3. Create `/scripts/quotes.js` → randomly show quotes when chat locks.
+
+; ✅ *Outcome:* Chatbot is emotionally responsive and session-limited.
+
+; ---
+
+; ### 🎯 **Phase 4 — Hobby & Activity Suggestions (Day 6)**
+
+; **Goal:** Simulate fetching nearby activities.
+
+; 1. Create `/data/places.json`:
+
+;    ```json
+;    [
+;      { "city": "Delhi", "interest": "yoga", "name": "Urban Soul Yoga", "distance_km": 1.2 },
+;      { "city": "Delhi", "interest": "art", "name": "Paint & Chill Studio", "distance_km": 2.8 }
+;    ]
+;    ```
+; 2. In `chatbot.js`, when user mentions a hobby → filter and display top 3 matches.
+;    Example:
+;    “I like art.” → shows 3 art places from Delhi.
+
+; ✅ *Outcome:* Chatbot gives hobby/activity recommendations.
+
+; ---
+
+; ### 🧘 **Phase 5 — Motivation & Ads (Day 7)**
+
+; **Goal:** Display rotating inspirational cards.
+
+; 1. Create `/scripts/quotes.js` (if not already).
+; 2. Add motivational photos, seminar posters, and quotes in `/images/`.
+; 3. Add rotating “Motivation Board” section under chatbot.
+
+; ✅ *Outcome:* Emotional + uplifting vibe for users.
+
+; ---
+
+; ### 💎 **Phase 6 — Premium / Therapist Section (Day 8)**
+
+; **Goal:** Add upsell simulation.
+
+; 1. Add small banner in chatbot or bottom of page:
+;    “Need extra support? Connect to a licensed therapist (coming soon).”
+; 2. Button → opens a modal with dummy links to therapy pages.
+
+; ✅ *Outcome:* Simulated premium feature without backend.
+
+; ---
+
+; ### 🎮 **Phase 7 — Offline Mini-Game (Day 9–10)**
+
+; **Goal:** Give user something calming when chat limit reached.
+
+; 1. Create `game.html` and `game.js`
+; 2. Simple relaxing game (like “pop the bubbles” or “focus dot”).
+; 3. After user limit ends → redirect to `game.html` or show *Play Game* button.
+
+; ✅ *Outcome:* Full flow complete.
+
+; ---
+
+; ### 📊 **Phase 8 — Analytics & SEO (Day 11–12)**
+
+; **Goal:** Add metrics + search optimization.
+
+; 1. Create Google Analytics account → get GA4 tracking ID.
+; 2. Add the script inside `<head>` of `index.html`.
+; 3. Add meta tags:
+
+;    ```html
+;    <meta name="description" content="EmoAware — Emotional AI for marketing & wellbeing">
+;    <meta name="keywords" content="emotional AI, mental health, chatbot, marketing AI, emoaware">
+;    <meta name="author" content="Shine Khinda">
+;    ```
+; 4. Add alt text to all images.
+
+; ✅ *Outcome:* You’ll get analytics data for your report.
+
+; ---
+
+; ### 📲 **Phase 9 — Social Integration (Day 13)**
+
+; **Goal:** Connect socials and create mock posts.
+
+; 1. Add footer icons for Instagram, LinkedIn, and Twitter.
+; 2. Create 3 sample posts about “Emotional AI for marketing” on those platforms.
+; 3. Link them in the footer.
+
+; ✅ *Outcome:* You’ve met the “social media integration” rubric.
+
+; ---
+
+; ### 📘 **Phase 10 — Final Report & Submission (Day 14–15)**
+
+; **Goal:** Compile everything for MKT311 submission.
+
+; Include:
+
+; * Website screenshots
+; * Google Analytics screenshot
+; * Social post screenshots
+; * SEO meta tags code snippet
+; * Brief paragraph on your AI-driven strategy (the chatbot logic)
+
+; ✅ *Outcome:* Professional, fully compliant submission.
+
+; ---
+
+; ## 🏁 Summary Table
+
+; | Phase | Deliverable                | Files Created               |
+; | ----- | -------------------------- | --------------------------- |
+; | 1     | Base Website               | `index.html`, `style.css`   |
+; | 2     | Chat Interface             | `chatbot.css`, `chatbot.js` |
+; | 3     | Emotion Detection + Limits | `quotes.json`, `quotes.js`  |
+; | 4     | Hobby Suggestions          | `places.json`               |
+; | 5     | Motivation Ads             | `images/`, `quotes.js`      |
+; | 6     | Premium Section            | Modal in `index.html`       |
+; | 7     | Game                       | `game.html`, `game.js`      |
+; | 8     | Analytics & SEO            | GA script + meta tags       |
+; | 9     | Social Integration         | Footer icons + mock posts   |
+; | 10    | Report                     | Screenshots + write-up      |
+
+; ---
+
+; ✨ **Next Step for You:**
+; Let’s begin **Phase 1 (Setup + Base Website)** —
+; You already have your `index.html` and `style.css`.
+
+; Would you like me to update your current files to include:
+
+; * a “Start Chat” button,
+; * placeholder for chatbot (so you’re ready for Phase 2)?

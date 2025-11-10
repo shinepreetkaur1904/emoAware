@@ -1,0 +1,482 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+:root {
+  --brand: #e60023;
+  --brand-dark: #b0001b;
+  --brand-soft: #ff8fa2;
+  --bg: #fff9fa;
+  --bg-gradient: linear-gradient(135deg, #fff5f6, #ffeef2);
+  --text: #222;
+  --muted: #666;
+  --card: #ffffff;
+  --border: rgba(255, 255, 255, 0.5);
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.06);
+  --radius: 20px;
+}
+
+/* =======================
+   BASE STYLES
+======================= */
+
+.hero {
+  text-align: center;
+  padding: 120px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 85vh; /* centers only the hero content */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: transparent; /* Let stars show through */
+  color: var(--text);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  line-height: 1.7;
+  position: relative;
+  z-index: 1;
+}
+
+
+/* Subtle glow animation */
+@keyframes softGlow {
+  0% { box-shadow: 0 0 15px rgba(230, 0, 35, 0.08); }
+  100% { box-shadow: 0 0 30px rgba(230, 0, 35, 0.15); }
+}
+
+/* =======================
+   HEADER
+======================= */
+header {
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  z-index: 100;
+}
+
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 18px 24px;
+}
+
+.header-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--brand);
+  gap: 8px;
+}
+
+.logo {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  border: 2px solid rgba(230, 0, 35, 0.25);
+  box-shadow: 0 0 12px rgba(230, 0, 35, 0.12);
+  padding: 4px;
+  background-color: #fff;
+}
+
+nav a {
+  margin-left: 22px;
+  text-decoration: none;
+  color: var(--muted);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--brand);
+  text-shadow: 0 0 6px rgba(230, 0, 35, 0.2);
+}
+
+/* =======================
+   HERO SECTION
+======================= */
+
+.badge {
+  display: inline-block;
+  background: var(--brand);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  letter-spacing: 0.6px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  animation: softGlow 3s ease-in-out infinite alternate;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  line-height: 1.2;
+  color: var(--brand-dark);
+  margin-bottom: 16px;
+}
+
+.hero p {
+  color: var(--muted);
+  max-width: 700px;
+  margin: 0 auto 40px;
+  font-size: 18px;
+}
+
+.cta {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  background: var(--brand);
+  color: #fff;
+  border: none;
+  padding: 14px 26px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-soft);
+}
+
+.btn:hover {
+  background: var(--brand-dark);
+  transform: translateY(-3px);
+}
+
+.btn.secondary {
+  background: #fff;
+  color: var(--brand);
+  border: 2px solid var(--brand);
+}
+
+/* =======================
+   FEATURES GRID
+======================= */
+.grid {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  padding: 80px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: var(--shadow-soft);
+  padding: 32px 28px;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(230, 0, 35, 0.1);
+}
+
+.card h3 {
+  color: var(--brand);
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+}
+
+.card p {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* =======================
+   MOTIVATIONAL QUOTES 🌸✨
+======================= */
+#motivation {
+  background: linear-gradient(145deg, #fff7f8, #ffeef3);
+  padding: 90px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 0; /* 💫 Keeps it behind floating elements */
+}
+
+/* ✨ Floating star particles ✨ */
+#motivation::before,
+#motivation::after,
+#motivation .star-1,
+#motivation .star-2,
+#motivation .star-3,
+#motivation .star-4,
+#motivation .star-5 {
+  content: "✦";
+  position: absolute;
+  color: rgba(230, 0, 35, 0.08);
+  font-size: 32px;
+  animation: sparkleFloat 8s ease-in-out infinite;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Subtle scattered positioning */
+#motivation::before { top: 18%; left: 12%; animation-delay: 0s; font-size: 36px; }
+#motivation::after { bottom: 15%; right: 8%; animation-delay: 2s; font-size: 42px; }
+
+#motivation .star-1 { top: 30%; right: 18%; animation-delay: 1s; font-size: 28px; }
+#motivation .star-2 { bottom: 25%; left: 15%; animation-delay: 3s; font-size: 40px; }
+#motivation .star-3 { top: 10%; right: 35%; animation-delay: 4s; font-size: 22px; opacity: 0.5; }
+#motivation .star-4 { bottom: 10%; left: 40%; animation-delay: 5s; font-size: 35px; opacity: 0.7; }
+#motivation .star-5 { top: 50%; right: 10%; animation-delay: 6s; font-size: 26px; opacity: 0.8; }
+
+@keyframes sparkleFloat {
+  0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.3; }
+  50% { transform: translateY(-10px) scale(1.05) rotate(6deg); opacity: 0.8; }
+  100% { transform: translateY(0) scale(1) rotate(-6deg); opacity: 0.4; }
+}
+
+/* =======================
+   TITLE
+======================= */
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px;
+  color: var(--brand-dark);
+  margin-bottom: 45px;
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 4px;
+  background: var(--brand);
+  border-radius: 3px;
+  margin: 14px auto 0;
+  box-shadow: 0 0 15px rgba(230, 0, 35, 0.3);
+}
+
+/* =======================
+   QUOTES CONTAINER
+======================= */
+.quotes-container {
+  max-width: 750px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(230, 0, 35, 0.15);
+  border-radius: 24px;
+  box-shadow: 0 14px 40px rgba(230, 0, 35, 0.08);
+  padding: 45px 35px;
+  backdrop-filter: blur(12px);
+  position: relative;
+  transition: all 0.4s ease;
+}
+
+/* Glow hover */
+.quotes-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 45px rgba(230, 0, 35, 0.12);
+}
+
+/* Elegant decorative quote marks */
+.quotes-container::before,
+.quotes-container::after {
+  content: "“";
+  position: absolute;
+  font-family: 'Playfair Display', serif;
+  font-size: 120px;
+  color: rgba(230, 0, 35, 0.08);
+  z-index: 0;
+  transition: 0.4s ease;
+}
+
+.quotes-container::before {
+  top: -40px;
+  left: 20px;
+}
+
+.quotes-container::after {
+  content: "”";
+  bottom: -70px;
+  right: 40px;
+}
+
+/* Quote text */
+.quotes-container p {
+  font-style: italic;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1.7;
+  z-index: 1;
+  position: relative;
+  animation: fadeQuote 0.8s ease forwards;
+}
+
+/* Fade-in animation for the quote */
+@keyframes fadeQuote {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =======================
+   FOOTER
+======================= */
+footer {
+  background: #fff;
+  border-top: 1px solid var(--border);
+  padding: 40px 20px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+footer span {
+  color: var(--brand);
+  font-weight: 600;
+}
+
+/* =======================
+   CHAT ICON (FLOAT)
+======================= */
+#chat-icon {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--brand);
+  color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.3s ease;
+    z-index: 1000; 
+}
+
+#chat-icon:hover {
+  background: var(--brand-dark);
+  transform: scale(1.1);
+}
+
+/* =======================
+   RESPONSIVE
+======================= */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 40px;
+  }
+
+  .card {
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: 30px;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 12px 20px;
+  }
+}
+
+/* =======================
+   ✨ GLOBAL STARFIELD ✨
+======================= */
+.global-stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.global-stars span {
+  position: absolute;
+  color: rgba(230, 0, 35, 0.22); /* more visible, deeper tone */
+  font-size: 28px; /* larger base size */
+  animation: twinkle 6s infinite ease-in-out alternate;
+  opacity: 0.9; /* makes them glow softly */
+  filter: drop-shadow(0 0 6px rgba(230, 0, 35, 0.25)); /* soft luminous halo */
+}
+
+/* ✦ Position stars randomly across the viewport */
+.global-stars span:nth-child(1) { top: 5%; left: 10%; font-size: 16px; }
+.global-stars span:nth-child(2) { top: 15%; left: 25%; font-size: 22px; }
+.global-stars span:nth-child(3) { top: 8%; left: 50%; font-size: 28px; }
+.global-stars span:nth-child(4) { top: 20%; left: 70%; font-size: 24px; }
+.global-stars span:nth-child(5) { top: 10%; left: 85%; font-size: 18px; }
+.global-stars span:nth-child(6) { top: 30%; left: 5%; font-size: 32px; }
+.global-stars span:nth-child(7) { top: 35%; left: 20%; font-size: 26px; }
+.global-stars span:nth-child(8) { top: 40%; left: 45%; font-size: 20px; }
+.global-stars span:nth-child(9) { top: 45%; left: 60%; font-size: 22px; }
+.global-stars span:nth-child(10){ top: 30%; left: 90%; font-size: 28px; }
+.global-stars span:nth-child(11){ top: 55%; left: 15%; font-size: 20px; }
+.global-stars span:nth-child(12){ top: 50%; left: 35%; font-size: 24px; }
+.global-stars span:nth-child(13){ top: 60%; left: 50%; font-size: 18px; }
+.global-stars span:nth-child(14){ top: 65%; left: 75%; font-size: 30px; }
+.global-stars span:nth-child(15){ top: 70%; left: 5%; font-size: 26px; }
+.global-stars span:nth-child(16){ top: 75%; left: 25%; font-size: 20px; }
+.global-stars span:nth-child(17){ top: 80%; left: 50%; font-size: 24px; }
+.global-stars span:nth-child(18){ top: 85%; left: 70%; font-size: 18px; }
+.global-stars span:nth-child(19){ top: 90%; left: 90%; font-size: 30px; }
+.global-stars span:nth-child(20){ top: 95%; left: 40%; font-size: 22px; }
+
+/* ✨ Animation */
+@keyframes twinkle {
+  0% { opacity: 0.4; transform: scale(1) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.15) rotate(6deg); }
+  100% { opacity: 0.5; transform: scale(1) rotate(-6deg); }
+}
+
+/* Make sure content appears above stars */
+body, header, main, footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* 🌟 Restore EA chat icon style */
+#chat-icon .ea-icon {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #fff;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}

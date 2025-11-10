@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zen Rain | EmoAware</title>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:wght@500&display=swap');
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #fff0f3, #ffe4e8);
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    margin-top: 10px;
+    color: #e60023;
+  }
+
+  .subline {
+    color: #555;
+    margin-bottom: 20px;
+    font-size: 15px;
+  }
+
+  /* Full rain area */
+  .rain-area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: auto;
+    z-index: 1;
+  }
+
+  /* Raindrops */
+  .drop {
+    position: absolute;
+    width: 4px;
+    height: 18px;
+    background: rgba(230, 0, 35, 0.25);
+    border-radius: 4px;
+    animation: fall linear infinite;
+    opacity: 0.6;
+  }
+
+  @keyframes fall {
+    0% {
+      transform: translateY(-120px);
+      opacity: 0.7;
+    }
+    100% {
+      transform: translateY(110vh);
+      opacity: 0.4;
+    }
+  }
+
+  /* Ripple effect */
+  .ripple {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 2px solid rgba(230, 0, 35, 0.4);
+    animation: rippleAnim 1s ease-out forwards;
+    pointer-events: none;
+  }
+
+  @keyframes rippleAnim {
+    from {
+      transform: scale(0.2);
+      opacity: 0.8;
+    }
+    to {
+      transform: scale(2.5);
+      opacity: 0;
+    }
+  }
+
+  /* Back Button */
+  .back-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #e60023, #ff6b81);
+    border: none;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(230,0,35,0.2);
+    z-index: 10;
+  }
+
+  .back-btn:hover {
+    background: #b0001b;
+    transform: translateX(-50%) translateY(-3px);
+  }
+
+</style>
+</head>
+<body>
+
+<h1>Zen Rain 🌧️</h1>
+<p class="subline">Tap the rain to create gentle ripples…</p>
+
+<div class="rain-area" id="rainArea"></div>
+
+<button class="back-btn" onclick="window.location.href='../games.html'">⬅ Back to Games</button>
+
+<script>
+  const rainArea = document.getElementById("rainArea");
+
+  // Create falling raindrops
+  function createDrop() {
+    const drop = document.createElement("div");
+    drop.classList.add("drop");
+
+    // random horizontal position
+    drop.style.left = Math.random() * window.innerWidth + "px";
+    drop.style.animationDuration = (Math.random() * 4 + 4) + "s"; // smooth slow fall
+
+    rainArea.appendChild(drop);
+
+    // remove after it falls
+    setTimeout(() => drop.remove(), 6000);
+  }
+
+  // Create ripples when clicking
+  rainArea.addEventListener("click", (e) => {
+    const ripple = document.createElement("div");
+    ripple.classList.add("ripple");
+    ripple.style.left = e.clientX - 10 + "px";
+    ripple.style.top = e.clientY - 10 + "px";
+
+    rainArea.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 1000);
+  });
+
+  // Falling rain interval
+  setInterval(createDrop, 150);
+
+</script>
+
+</body>
+</html>

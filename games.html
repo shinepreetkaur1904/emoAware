@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EmoAware Games</title>
+
+  <!-- MAIN GLOBAL STYLE -->
+  <link rel="stylesheet" href="assets/style.css">
+
+  <!-- GAMES PAGE STYLE -->
+  <link rel="stylesheet" href="assets/game.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="wrap header-wrap">
+      <div class="brand">
+        <img src="assets/emoaware logo.png" class="logo" alt="EmoAware Logo">
+      </div>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="insights.html">Insights</a>
+        <a href="join.html">Beta</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN GAMES SECTION -->
+  <main class="games-section">
+
+    <h1 class="game-title">Relax & Play 🕹️</h1>
+    <p class="game-subtitle">Simple calming mini-games designed to ease your mind</p>
+
+    <div class="games-container">
+
+      <!-- Game Card 1: Bubble Pop -->
+      <div class="game-card" onclick="openGame('bubble')">
+        <h2>Bubble Pop 🌼</h2>
+        <p>Tap and burst bubbles for stress release.</p>
+        <button class="play-btn">Play</button>
+      </div>
+
+      <!-- Game Card 2: Breathing Game -->
+      <div class="game-card" onclick="openGame('breath')">
+        <h2>Breathing Rhythm 🌬️</h2>
+        <p>Follow visual breathing to calm anxiety.</p>
+        <button class="play-btn">Play</button>
+      </div>
+
+      <!-- Game Card 3: Memory Tiles -->
+      <div class="game-card" onclick="openGame('memory')">
+        <h2>Memory Tiles 🧠</h2>
+        <p>Match pairs and improve focus.</p>
+        <button class="play-btn">Play</button>
+      </div>
+
+      <!-- Game Card 4: Mood Paint -->
+      <div class="game-card" onclick="openGame('paint')">
+        <h2>Mood Paint 🎨</h2>
+        <p>Draw freely & express emotions softly.</p>
+        <button class="play-btn">Play</button>
+      </div>
+
+      <!-- Game Card 5: Chill Music -->
+      <div class="game-card" onclick="openGame('music')">
+        <h2>Zen Rain ⛈</h2>
+        <p>See gentle falling of rain drops</p>
+        <button class="play-btn">Play</button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2025 EmoAware — Made with ❤️ for your peace
+  </footer>
+
+  <script src="scripts/game.js"></script>
+</body>
+</html>
