@@ -23,4 +23,16 @@ function openGame(type) {
     default:
       alert("Game coming soon!");
   }
+
+
+
+
+
+
+
+
+
+  //////////
 }
+
+
