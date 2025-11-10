@@ -8,7 +8,7 @@ const userInput = document.getElementById("user-input");
 const sendBtn = document.getElementById("send-btn");
 
 // --- Session Setup (Test Mode: 10 seconds for now) ---
-const SESSION_DURATION = 10 * 1000;
+const SESSION_DURATION = 40 * 60 * 1000; // 40 minutes in milliseconds
 const sessionKey = "emoaware_session_start";
 
 // --- Emotion-Based Replies ---
