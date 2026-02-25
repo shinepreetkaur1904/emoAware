@@ -114,18 +114,24 @@ async function sendMessage() {
   const emotion = detectEmotion(input);
   addMessage("typing...", "bot");
 
+  const sessionEmail = localStorage.getItem("sessionEmail");
+
   try {
     const response = await fetch('http://localhost:3000/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userMessage: input, emotion: emotion })
+      body: JSON.stringify({
+        userMessage: input,
+        emotion: emotion,
+        email: sessionEmail
+      })
     });
 
     const data = await response.json();
 
-    // Remove typing indicator
     const messages = chatBody.querySelectorAll('.bot-message');
     messages[messages.length - 1].remove();
+
     addMessage(data.botReply, "bot");
 
   } catch (err) {

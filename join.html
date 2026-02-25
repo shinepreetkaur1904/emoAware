@@ -20,10 +20,12 @@
         <img src="assets/emoaware logo.png" alt="EmoAware Logo" class="logo" />
       </div>
       <nav>
-        <a href="index.html">🏠 Home</a>
-        <a href="join.html" class="active-link">Beta</a>
-        <a href="insights.html">Insights</a>
-      </nav>
+  <a href="index.html">Home</a>
+  <a href="chat.html">Chat</a>
+  <a href="insights.html">Insights</a>
+  <a href="games.html">Games</a>
+  <a href="about.html">About</a>
+</nav>
     </div>
   </header>
 
@@ -39,19 +41,41 @@
       <h2>Let’s Stay Connected</h2>
       <p>Sign up for early access and updates. We’ll reach out when new features go live!</p>
 
-      <form class="join-form">
-        <input type="email" placeholder="Enter your email" required />
-        <button type="submit">Request Invite</button>
+      <form class="join-form" onsubmit="saveEmail(event)">
+      <input type="email" id="userEmail" placeholder="Enter your email" required />
+      <button type="submit">Start Session</button>
       </form>
 
       <p class="small-note">We respect your privacy. No spam — only good vibes. 🌷</p>
     </div>
   </section>
 
+  <section class="stack-demo">
+  <div class="join-card">
+    <h2>Emotion Stack</h2>
+    <p>Push emotions into stack and undo last action (LIFO behavior).</p>
+
+    <div class="stack-controls">
+  <button onclick="clearStack()">Reset Session Stack</button>
+</div>
+
+    <h3>Top Emotion:</h3>
+    <p id="topEmotion">None</p>
+
+    <h3>Stack Size:</h3>
+    <p id="stackSize">0</p>
+
+    <h3>Stack Content:</h3>
+    <div id="stackContent"></div>
+  </div>
+</section>
+
   <!-- FOOTER -->
   <footer>
     © 2025 <span>EmoAware</span> · Made with ❤️ for the emotionally aware world.
   </footer>
+
+  <script src="scripts/beta.js"></script>
 
 </body>
 </html>

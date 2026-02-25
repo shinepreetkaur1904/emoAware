@@ -21,6 +21,7 @@ const chatSchema = new mongoose.Schema({
   userMessage: String,
   botReply: String,
   emotion: String,
+  email: String,   // ← ADD THIS LINE
   timestamp: { type: Date, default: Date.now }
 });
 
@@ -29,7 +30,7 @@ const Chat = mongoose.model('Chat', chatSchema);
 // POST - chat with Groq
 app.post('/api/chat', async (req, res) => {
   console.log('hit!', req.body);
-  const { userMessage, emotion } = req.body;
+  const { userMessage, emotion, email } = req.body;
 
   try {
     console.log('calling groq with:', userMessage, emotion);
@@ -51,7 +52,7 @@ app.post('/api/chat', async (req, res) => {
 
     const botReply = completion.choices[0].message.content;
 
-    const chat = new Chat({ userMessage, botReply, emotion });
+    const chat = new Chat({ userMessage, botReply, emotion, email });
     await chat.save();
 
     res.json({ botReply });
@@ -63,7 +64,16 @@ app.post('/api/chat', async (req, res) => {
 
 // GET - chat history
 app.get('/api/history', async (req, res) => {
-  const history = await Chat.find().sort({ timestamp: -1 });
+  const { email } = req.query;
+
+  let history;
+
+  if (email) {
+    history = await Chat.find({ email }).sort({ timestamp: -1 });
+  } else {
+    history = await Chat.find().sort({ timestamp: -1 });
+  }
+
   res.json(history);
 });
 
