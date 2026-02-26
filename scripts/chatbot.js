@@ -42,10 +42,32 @@ function addMessage(text, sender = "bot") {
 // --- Detect Emotion ---
 function detectEmotion(input) {
   input = input.toLowerCase();
-  if (input.includes("sad") || input.includes("tired") || input.includes("lonely")) return "sad";
-  if (input.includes("anxious") || input.includes("worried") || input.includes("scared")) return "anxious";
-  if (input.includes("happy") || input.includes("excited") || input.includes("great")) return "happy";
-  if (input.includes("angry") || input.includes("mad") || input.includes("upset")) return "angry";
+
+  const sadWords = [
+    "sad", "tired", "lonely", "depressed", "cry",
+    "hurt", "down", "scolded", "ignored", "rejected", "bad"
+  ];
+
+  const anxiousWords = [
+    "anxious", "worried", "scared", "nervous",
+    "stress", "panic", "overthinking"
+  ];
+
+  const happyWords = [
+    "happy", "excited", "great", "good",
+    "amazing", "love", "proud"
+  ];
+
+  const angryWords = [
+    "angry", "mad", "upset", "frustrated",
+    "annoyed", "yelled", "shouted"
+  ];
+
+  if (sadWords.some(word => input.includes(word))) return "sad";
+  if (anxiousWords.some(word => input.includes(word))) return "anxious";
+  if (angryWords.some(word => input.includes(word))) return "angry";
+  if (happyWords.some(word => input.includes(word))) return "happy";
+
   return "neutral";
 }
 

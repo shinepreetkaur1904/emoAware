@@ -116,6 +116,63 @@
     transform: translateX(-50%) translateY(-3px);
   }
 
+  .music-panel {
+  position: fixed;
+  top: 60px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  z-index: 10;
+  width: 380px;
+  display: flex;
+  flex-direction: column;   
+  
+}
+
+.music-panel h3 {
+  margin-top: 0;
+  font-size: 16px;
+  color: #e60023;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;   /* center buttons */
+  align-items: center;
+  gap: 10px;                 /* equal spacing */
+  margin-bottom: 12px;
+}
+
+.controls button {
+  width: 90px;       /* fixed width */
+  height: 45px;
+  border-radius: 12px;
+  border: none;
+  background: #e60023;
+  color: white;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.controls button:hover {
+  background: #b0001b;
+}
+
+.now-playing {
+  width: 100%;
+  margin-top: 12px;
+}
+
+#nowPlaying {
+  font-size: 15px;
+  font-weight: 500;
+  color: #444;
+  letter-spacing: 0.5px;
+}
+
 </style>
 </head>
 <body>
@@ -126,6 +183,22 @@
 <div class="rain-area" id="rainArea"></div>
 
 <button class="back-btn" onclick="window.location.href='../games.html'">⬅ Back to Games</button>
+
+<div class="music-panel">
+  <h3>🎶 Calm Playlist</h3>
+
+  <div class="controls">
+    <button onclick="togglePlay()" id="playBtn">▶ Play</button>
+    <button onclick="stopSong()">⏹ Stop</button>
+    <button onclick="playPrevious()">⏮ Prev</button>
+    <button onclick="playNext()">⏭ Next</button>
+    <button onclick="shufflePlay()">🔀 Shuffle</button>
+  </div>  <!-- CLOSE controls here -->
+
+  <div class="now-playing">
+    <p id="nowPlaying">No song playing</p>
+  </div>
+  </div>
 
 <script>
   const rainArea = document.getElementById("rainArea");
@@ -157,9 +230,148 @@
   });
 
   // Falling rain interval
-  setInterval(createDrop, 150);
+  setInterval(createDrop, 100);
+
+// ===============================
+// DOUBLY LINKED LIST MUSIC PLAYER
+// ===============================
+
+class Song {
+  constructor(name, file) {
+    this.name = name;
+    this.file = file;
+    this.next = null;
+    this.prev = null;
+  }
+}
+
+class MusicPlayer {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.current = null;
+  }
+
+  addSong(name, file) {
+    const newSong = new Song(name, file);
+
+    if (!this.head) {
+      this.head = this.tail = this.current = newSong;
+    } else {
+      this.tail.next = newSong;
+      newSong.prev = this.tail;
+      this.tail = newSong;
+    }
+  }
+
+playCurrent() {
+  if (!this.current) return;
+
+  const audio = document.getElementById("audioPlayer");
+  const btn = document.getElementById("playBtn");
+
+  audio.src = this.current.file;
+  audio.play();
+
+  btn.innerText = "⏸ Pause";
+
+  document.getElementById("nowPlaying").innerText =
+    "▶ Playing: " + this.current.name;
+}
+
+  playNext() {
+    if (this.current && this.current.next) {
+      this.current = this.current.next;
+      this.playCurrent();
+    }
+  }
+
+  playPrevious() {
+    if (this.current && this.current.prev) {
+      this.current = this.current.prev;
+      this.playCurrent();
+    }
+  }
+
+  shufflePlay() {
+    let songs = [];
+    let temp = this.head;
+
+    while (temp) {
+      songs.push(temp);
+      temp = temp.next;
+    }
+
+    if (songs.length === 0) return;
+
+    const randomIndex = Math.floor(Math.random() * songs.length);
+    this.current = songs[randomIndex];
+    this.playCurrent();
+  }
+}
+
+const player = new MusicPlayer();
+
+// Add your audio files here
+player.addSong("Rain1", "rain1.mp3");
+player.addSong("Rain2", "rain2.mp3");
+player.addSong("Rain3", "rain3.mp3");
+player.addSong("Rain4", "rain4.mp3");
+player.addSong("Rain5", "rain5.mp3");
+
+function playCurrent() { player.playCurrent(); }
+function playNext() { player.playNext(); }
+function playPrevious() { player.playPrevious(); }
+function shufflePlay() { player.shufflePlay(); }
+
+function togglePlay() {
+  const audio = document.getElementById("audioPlayer");
+  const btn = document.getElementById("playBtn");
+
+  if (!audio.src) {
+    player.playCurrent();
+    return;
+  }
+
+  if (audio.paused) {
+    audio.play();
+    btn.innerText = "⏸ Pause";
+  } else {
+    audio.pause();
+    btn.innerText = "▶ Play";
+  }
+}
+
+function stopSong() {
+  const audio = document.getElementById("audioPlayer");
+  const btn = document.getElementById("playBtn");
+
+  audio.pause();
+  audio.currentTime = 0;
+  audio.src = "";
+
+  btn.innerText = "▶ Play";
+  document.getElementById("nowPlaying").innerText = "No song playing";
+}
 
 </script>
+
+<audio id="audioPlayer"></audio>
+
+<!-- <div class="music-panel">
+  <h3>🎶 Calm Playlist</h3>
+  <div class="controls">
+  <button onclick="togglePlay()" id="playBtn">▶ Play</button>
+  <button onclick="stopSong()">⏹ Stop</button>
+  <button onclick="playPrevious()">⏮ Prev</button>
+  <button onclick="playNext()">⏭ Next</button>
+  <button onclick="shufflePlay()">🔀 Shuffle</button>
+
+ <div class="now-playing">
+  <p id="nowPlaying">No song playing</p>
+</div>
+</div> -->
+  
 
 </body>
 </html>
