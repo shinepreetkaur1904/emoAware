@@ -1,5 +1,3 @@
-// ================= STACK CLASS =================
-
 class Stack {
   constructor() {
     this.items = [];
