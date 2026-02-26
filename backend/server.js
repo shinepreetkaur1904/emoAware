@@ -7,13 +7,12 @@ const Groq = require('groq-sdk');
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static("public"));
 
 // Groq setup
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect('mongodb://localhost:27017/emoaware')
   .then(() => console.log('MongoDB connected ✅'))
   .catch(err => console.log(err));
 
@@ -78,8 +77,4 @@ app.get('/api/history', async (req, res) => {
   res.json(history);
 });
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT} 🚀`);
-});
+app.listen(3000, () => console.log('Server running on port 3000 🚀'));
