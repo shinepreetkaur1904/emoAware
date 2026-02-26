@@ -1,11 +1,88 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About | EmoAware</title>
   <link rel="stylesheet" href="assets/style.css" />
+
+  <style>
+    .about-section {
+      max-width: 900px;
+      margin: 80px auto;
+      text-align: center;
+      padding: 50px;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    .about-section h1 {
+      margin-bottom: 15px;
+      color: #b3001b;
+      font-size: 2.2rem;
+    }
+
+    .about-section p {
+      margin-top: 18px;
+      line-height: 1.7;
+      color: #444;
+      font-size: 1.05rem;
+    }
+
+    .tech-stack {
+      margin-top: 35px;
+    }
+
+    .badge {
+  display: inline-block;
+  background: #ffe5e8;      /* soft blush background */
+  color: #b3001b;           /* strong readable text */
+  padding: 8px 16px;
+  margin: 8px;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid #ffccd5;
+  transition: all 0.2s ease-in-out;
+}
+
+.badge:hover {
+  background: #b3001b;
+  color: white;
+  transform: translateY(-2px);
+}
+
+    .founder {
+      margin-top: 40px;
+      padding-top: 25px;
+      border-top: 1px solid #eee;
+      font-size: 0.95rem;
+      color: #666;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 80px;
+      padding: 20px 0;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
+
 <body>
 
   <header>
@@ -22,26 +99,41 @@
     </div>
   </header>
 
-  <section style="max-width: 800px; margin: 80px auto; text-align: center;">
+  <section class="about-section">
     <h1>About EmoAware</h1>
-    <p style="margin-top: 20px; line-height: 1.6;">
+
+    <p>
       EmoAware is an emotional intelligence web platform designed to provide 
       empathetic AI-powered conversations, mood tracking, and emotional insights.
     </p>
 
-    <p style="margin-top: 20px; line-height: 1.6;">
+    <p>
       The system integrates Artificial Intelligence with core Data Structures 
       such as Stack (LIFO tracking), HashMap-based analytics, and 
       structured session-based user identification.
     </p>
 
-    <p style="margin-top: 20px; line-height: 1.6;">
+    <p>
       Built with a full-stack architecture using JavaScript, MongoDB, and AI APIs,
       EmoAware aims to make digital spaces feel more human.
     </p>
+
+    <div class="tech-stack">
+      <div class="badge">JavaScript</div>
+      <div class="badge">Node.js</div>
+      <div class="badge">MongoDB</div>
+      <div class="badge">Groq API</div>
+      <div class="badge">Stack (DSA)</div>
+    </div>
+
+    <div class="founder">
+      Designed & Developed by Shinepreet Kaur  
+      <br>
+      B.Tech CSE · Full-Stack Developer
+    </div>
   </section>
 
-  <footer style="text-align:center; margin-top:80px;">
+  <footer>
     © 2025 EmoAware · Made with ❤️ for the emotionally aware world.
   </footer>
 

@@ -173,3 +173,16 @@ footer span {
   max-width: 600px;
   width: 100%;
 }
+
+.logout-btn {
+  margin-top: 15px;
+  background: transparent;
+  border: none;
+  color: #b3001b;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  text-decoration: underline;
+}

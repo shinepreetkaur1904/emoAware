@@ -158,6 +158,29 @@ async function loadUserHistory() {
   } catch (err) {
     console.log("Error loading history", err);
   }
+
+  
 }
 
 loadUserHistory();
+
+// ================= LOGOUT =================
+
+const logoutBtn = document.getElementById("logoutBtn");
+
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", () => {
+    // Clear emotion stack
+    emotionStack.clear();
+
+    // Remove local storage items
+    localStorage.removeItem("recentEmotions");
+    localStorage.removeItem("sessionEmail");
+
+    // Refresh UI instantly
+    updateDisplay();
+
+    // Optional: reload page to reset everything visually
+    window.location.reload();
+  });
+}

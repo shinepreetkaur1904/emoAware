@@ -11,6 +11,10 @@ const sendBtn = document.getElementById("send-btn");
 const SESSION_DURATION = 40 * 60 * 1000;
 const sessionKey = "emoaware_session_start";
 
+const sessionEmail = localStorage.getItem("sessionEmail");
+const chatHistoryKey = `emoaware_chat_${sessionEmail}`;
+let chatHistory = JSON.parse(localStorage.getItem(chatHistoryKey)) || [];
+
 // --- Session Functions ---
 function getSessionStart() {
   return parseInt(localStorage.getItem(sessionKey));
@@ -31,12 +35,18 @@ function random(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-function addMessage(text, sender = "bot") {
+function addMessage(text, sender = "bot", save = true) {
   const msg = document.createElement("div");
   msg.classList.add(sender === "bot" ? "bot-message" : "user-message");
   msg.innerHTML = text;
   chatBody.appendChild(msg);
   chatBody.scrollTop = chatBody.scrollHeight;
+
+  // Save to localStorage
+  if (save) {
+    chatHistory.push({ text, sender });
+    localStorage.setItem(chatHistoryKey, JSON.stringify(chatHistory));
+  }
 }
 
 // --- Detect Emotion ---
@@ -134,7 +144,7 @@ async function sendMessage() {
   userInput.value = "";
 
   const emotion = detectEmotion(input);
-  addMessage("typing...", "bot");
+  addMessage("typing...", "bot", false);
 
   const sessionEmail = localStorage.getItem("sessionEmail");
 
@@ -170,6 +180,29 @@ if (!getSessionStart() || hasSessionExpired()) {
   setSessionStart();
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  // Restore chat
+  chatHistory.forEach(msg => {
+    addMessage(msg.text, msg.sender, false);
+  });
+
+  // Event listeners
+  sendBtn.addEventListener("click", sendMessage);
+  userInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") sendMessage();
+  });
+
+  const logoutBtn = document.getElementById("logoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("sessionEmail");
+      localStorage.removeItem(sessionKey);
+      localStorage.removeItem(chatHistoryKey);
+      window.location.href = "login.html";
+    });
+  }
+});
+
 // --- Event Listeners ---
 sendBtn.addEventListener("click", sendMessage);
 userInput.addEventListener("keypress", (e) => {
@@ -180,3 +213,14 @@ userInput.addEventListener("keypress", (e) => {
 setTimeout(() => {
   if (hasSessionExpired()) lockChat();
 }, SESSION_DURATION);
+
+const logoutBtn = document.getElementById("logoutBtn");
+
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("sessionEmail");
+    localStorage.removeItem(sessionKey);
+    localStorage.removeItem(chatHistoryKey);
+    window.location.href = "login.html";
+  });
+}
